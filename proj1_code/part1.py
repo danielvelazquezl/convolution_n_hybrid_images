@@ -14,12 +14,11 @@ def univariate_gaussian(x, mean, variance):
     Return:
         value for [x] position of kernel
     """
-    return (1. / np.sqrt(2 * np.pi * variance)) * np.exp(- (x - mean)**2 / (2 * variance))
-    # return ((1. / np.sqrt(2 * np.pi * variance)) * 
-    #         np.exp(-(x - mean)**2 / (2 * variance)))
+    return (1 / (np.sqrt(2 * np.pi) * variance)) * np.exp(-(x - mean)**2 / (2 * variance**2))
 
 def create_Gaussian_kernel_1D(ksize: int, sigma: int) -> np.ndarray:
-    """Cree un kernel gaussiano 1D utilizando el tamaño de filtro y la desviación estándar especificados.
+    """
+    Cree un kernel gaussiano 1D utilizando el tamaño de filtro y la desviación estándar especificados.
     
     El kernel debe tener:
     - shape (k,1)
@@ -31,26 +30,21 @@ def create_Gaussian_kernel_1D(ksize: int, sigma: int) -> np.ndarray:
         sigma: desviación estandar para la distribución Gaussiana
     
     Retorna:
-        kernel: vector columna de 1d cuyo shape es (k, 1)
+        kernel: vector columna normalizado de 1D cuyo shape es (k, 1)
     
     TIPS:
-    - Puedes calcular el valor del vector usando la función de densidad probabilística (pdf) Gaussiana [la formula] en la cual el vector es una línea y el valor mas alto del vector se encuentra 
+    - Puedes calcular el valor del vector usando la función de densidad probabilística (pdf) Gaussiana [la formula] 
+        en la cual el vector es una línea y el valor mas alto del vector se encuentra 
     - El objetivo es discretizar los valores que se extraen de dicha fórmula dentro de un vector de 1 dimensión. 
     """
-    ############################
-    ### TODO: EL CÓDIGO EMPIEZA ACÁ ###
+
     mean = math.floor(ksize / 2) # posicion central en el kernel
     kernel = np.zeros((ksize, 1))
     with np.nditer(kernel, op_flags=['readwrite'], flags=['f_index']) as it:
         for x in it:
             x[...] = univariate_gaussian(it.index, mean, sigma)
-    # raise NotImplementedError(
-    #     "La función`create_Gaussian_kernel_1D` tiene que ser implementada en part1.py"
-    # )
-    ### EL CÓDIGO TERMINA ACÁ ####
-    
-    ############################
-    return kernel
+
+    return kernel / kernel.sum()
 
 def create_Gaussian_kernel_2D(cutoff_frequency: int) -> np.ndarray:
     """

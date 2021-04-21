@@ -1,4 +1,4 @@
-# CS 6476 project 1: Convolution and Hybrid Images
+# [CS 6476 project 1: Convolution and Hybrid Images](https://www.cc.gatech.edu/~hays/compvision/proj1/proj1.pdf)
 
 # Setup
 1. Install [Miniconda](https://conda.io/miniconda.html). It doesn't matter whether you use Python 2 or 3 because we will create our own environment that uses python3 anyways.

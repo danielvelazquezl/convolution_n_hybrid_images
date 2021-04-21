@@ -14,7 +14,7 @@ def univariate_gaussian(x, mean, variance):
     Return:
         value for [x] position of kernel
     """
-    return (1. / np.sqrt(2 * np.pi * variance)) * np.exp(- (x - mean)**2 / (2 * variance**2))
+    return (1. / np.sqrt(2 * np.pi * variance)) * np.exp(- (x - mean)**2 / (2 * variance))
     # return ((1. / np.sqrt(2 * np.pi * variance)) * 
     #         np.exp(-(x - mean)**2 / (2 * variance)))
 

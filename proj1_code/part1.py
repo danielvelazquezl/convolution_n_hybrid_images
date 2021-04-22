@@ -1,9 +1,10 @@
 #!/usr/bin/python3
 
+import math
 from typing import Tuple
 
 import numpy as np
-import math
+
 
 def univariate_gaussian(x, mean, variance):
     """
@@ -12,7 +13,7 @@ def univariate_gaussian(x, mean, variance):
         mean
         variance
     Return:
-        value for [x] position of kernel
+        value for [x] position of kernel 
     """
     return (1 / (np.sqrt(2 * np.pi) * variance)) * np.exp(-(x - mean)**2 / (2 * variance**2))
 
@@ -71,17 +72,9 @@ def create_Gaussian_kernel_2D(cutoff_frequency: int) -> np.ndarray:
     - La idea nuevamente es distretizar los valores gaussianos en una matriz.
     """
 
-    ############################
-    ### TODO: EL CÓDIGO EMPIEZA ACÁ ###
-
-    raise NotImplementedError(
-        "La función `create_Gaussian_kernel_2D` necesita ser implementada en `part1.py`"
-    )
-
-    ### EL CÓDIGO TERMINA ACÁ ####
-    ############################
-
-    return kernel
+    kernel_1d = create_Gaussian_kernel_1D(cutoff_frequency * 4 + 1, cutoff_frequency)
+    
+    return kernel_1d * kernel_1d.T
 
 
 def my_conv2d_numpy(image: np.ndarray, filter: np.ndarray) -> np.ndarray:

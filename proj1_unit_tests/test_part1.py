@@ -29,7 +29,9 @@ ROOT = Path(__file__).resolve().parent.parent  # ../..
 Even size kernels are not required for this project, so we exclude this test case.
 """
 
-
+"""
+Part 1.1
+"""
 def test_create_Gaussian_kernel_1D():
     """ Check that a few values are correct inside 1d kernel"""
     ksize = 29
@@ -57,7 +59,6 @@ def test_create_Gaussian_kernel_1D():
     assert np.allclose(gt_kernel_crop, student_kernel_crop, atol=1e-5), "Values dont match"
     assert np.allclose(kernel.sum(), 1, atol=1e-3), "Kernel doesnt sum to 1"
 
-
 def test_create_Gaussian_kernel_1D_sumsto1():
     """ Verifies that generated 1d Gaussian kernel sums to 1. """
     ksize = 29
@@ -65,14 +66,6 @@ def test_create_Gaussian_kernel_1D_sumsto1():
     kernel = create_Gaussian_kernel_1D(ksize, sigma)
     assert np.allclose(kernel.sum(), 1, atol=1e-3), "Kernel doesnt sum to 1"
 
-
-def test_create_Gaussian_kernel_2D_sumsto1():
-    """ Verifies that generated 2d Gaussian kernel sums to 1. """
-    cutoff_frequency = 7
-    kernel = create_Gaussian_kernel_2D(cutoff_frequency)
-    assert np.allclose(kernel.sum(), 1, atol=1e-3), "Kernel doesnt sum to 1"
-
-	
 def test_create_Gaussian_kernel_1D_peak():
     """ Ensure peak of 1d kernel is at center, and dims are correct """
     ksize = 29
@@ -94,6 +87,12 @@ def test_create_Gaussian_kernel_1D_peak():
     # should be only 1 peak
     assert coords.shape == (1, 2), "Peak is not unique"
 
+def test_create_Gaussian_kernel_2D_sumsto1():
+    """ Verifies that generated 2d Gaussian kernel sums to 1. """
+    cutoff_frequency = 7
+    kernel = create_Gaussian_kernel_2D(cutoff_frequency)
+    assert np.allclose(kernel.sum(), 1, atol=1e-3), "Kernel doesnt sum to 1"
+
 def test_create_Gaussian_kernel_2D_peak():
     """ Ensure peak of 2d kernel is at center, and dims are correct """
     cutoff_frequency = 7
@@ -114,7 +113,6 @@ def test_create_Gaussian_kernel_2D_peak():
     assert coords.shape == (1, 2), "Peak is not unique"
     assert coords[0, 0] == center_row, "Peak is not at center row"
     assert coords[0, 1] == center_col, "Peak is not at center column"
-
 
 def test_gaussian_kernel_2D() -> None:
     """Verify values of inner 5x5 patch of 29x29 Gaussian kernel."""
@@ -141,6 +139,9 @@ def test_gaussian_kernel_2D() -> None:
     assert np.allclose(gt_kernel_crop, student_kernel_crop, atol=1e-5), "Values dont match"
     assert np.allclose(kernel.sum(), 1.0, atol=1e-3)
 
+"""
+Part 1.2
+"""
 def test_my_conv2d_numpy_identity():
     """Check identity filter works correctly on all channels"""
     filter = np.array(
@@ -239,7 +240,9 @@ def test_my_conv2d_numpy_nonsquare_filter():
 
     assert np.allclose(filtered_img, gt_filtered_img)
 
-
+"""
+Part 1.3
+"""
 def test_hybrid_image_np() -> None:
 	"""Verify that hybrid image values are correct."""
 	image1 = load_image(f'{ROOT}/data/1a_dog.bmp')

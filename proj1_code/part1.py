@@ -7,7 +7,9 @@ from skimage.exposure import rescale_intensity
 
 import numpy as np
 
-
+"""
+Part 1.1
+"""
 def univariate_gaussian(x, mean, variance):
     """
     Params:
@@ -78,6 +80,9 @@ def create_Gaussian_kernel_2D(cutoff_frequency: int) -> np.ndarray:
     
     return kernel_1d * kernel_1d.T
 
+"""
+Part 1.2
+"""
 def convolve(image: np.ndarray, kernel: np.ndarray):
     """
     Convolution applied to one channel 
@@ -129,7 +134,9 @@ def my_conv2d_numpy(image: np.ndarray, filter: np.ndarray) -> np.ndarray:
     
     return filtered_image
 
-
+"""
+Part 1.3
+"""
 def create_hybrid_image(
     image1: np.ndarray, image2: np.ndarray, filter: np.ndarray
 ) -> Tuple[np.ndarray, np.ndarray, np.ndarray]:

@@ -141,12 +141,10 @@ def create_hybrid_image(
     image1: np.ndarray, image2: np.ndarray, filter: np.ndarray
 ) -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
     """
-    Takes two images and a low-pass filter and creates a hybrid image. Returns
-    the low frequency content of image1, the high frequency content of image 2,
-    and the hybrid image.
+    Takes two images and a low-pass filter and creates a hybrid image. Returns the 
+    low frequency content of image1, the high frequency content of image 2, and the hybrid image.
     Dadas 2 imágenes y un filtro low-pass, crea una imagen híbrida. 
-    Retornar las frecuencias bajas de la imagen1 y las frecuencias altas de la imagen 2, 
-    y la imágen híbrida.
+    Retornar las frecuencias bajas de la imagen1 y las frecuencias altas de la imagen 2, y la imágen híbrida.
 
     Parámetros:
         image1: array de dimensión (m, n, c)
@@ -159,8 +157,7 @@ def create_hybrid_image(
 
     TIPS:
     - Se hace uso de my_conv2d_numpy.
-    - Se extrae las altas frecuencias de una imagen restándole sus bajas frecuencias. Piensa como 
-      puedes hacer esto en términos matemáticos y de filtros.
+    - Se extrae las altas frecuencias de una imagen restándole sus bajas frecuencias. /- Piensa como puedes hacer esto en términos matemáticos y de filtros.
     - No olvides que los valores de los pixeles deben estar entre 0  y 1. Esto se conoce como 'clipping'. Numpy ofrece una función para hacer clipping, es básicamente lo que vimos en clase. 
       Todo valor que sobrepase un threshold máximo o mínimo es cambiado por dicho valor máximo o mínimo.
     - Las imágenes tienen que tener la misma dimensión. Si quieres usar imágenes de dimensiones distintas tienes que redimensionarlas primero en la notebook.
@@ -174,14 +171,8 @@ def create_hybrid_image(
     assert filter.shape[0] % 2 == 1
     assert filter.shape[1] % 2 == 1
 
-    ############################
-    ### TODO: EL CÓDIGO EMPIEZA ACÁ ###
+    low_frequencies = my_conv2d_numpy(image1, filter)
+    high_frequencies = image2 - my_conv2d_numpy(image2, filter)
+    hybrid_image = low_frequencies + high_frequencies
 
-    raise NotImplementedError(
-        "La función `create_hybrid_image` debe ser implementada en `part1.py`"
-    )
-
-    ### EL CÓDIGO TERMINA ACÁ ####
-    ############################
-
-    return low_frequencies, high_frequencies, hybrid_image
+    return low_frequencies, high_frequencies, np.clip(hybrid_image, 0, 1)

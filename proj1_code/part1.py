@@ -2,6 +2,8 @@
 
 import math
 from typing import Tuple
+import cv2
+from skimage.exposure import rescale_intensity
 
 import numpy as np
 
@@ -39,7 +41,7 @@ def create_Gaussian_kernel_1D(ksize: int, sigma: int) -> np.ndarray:
     - El objetivo es discretizar los valores que se extraen de dicha fórmula dentro de un vector de 1 dimensión. 
     """
 
-    mean = math.floor(ksize / 2) # posicion central en el kernel
+    mean = ksize // 2 # posicion central en el kernel
     kernel = np.zeros((ksize, 1))
     with np.nditer(kernel, op_flags=['readwrite'], flags=['f_index']) as it:
         for x in it:
@@ -76,6 +78,23 @@ def create_Gaussian_kernel_2D(cutoff_frequency: int) -> np.ndarray:
     
     return kernel_1d * kernel_1d.T
 
+def convolve(image: np.ndarray, kernel: np.ndarray):
+    """
+    Convolution applied to one channel 
+    https://www.pyimagesearch.com/2016/07/25/convolutions-with-opencv-and-python/
+    """
+    result = np.zeros(image.shape)
+    kRows, kCols = kernel.shape
+    padY = kernel.shape[0] // 2
+    padX = kernel.shape[1] // 2
+    padded_image = cv2.copyMakeBorder(image, padY, padY, padX, padX, cv2.BORDER_CONSTANT)
+    iRows, iCols = image.shape
+
+    for i in range(iRows):
+        for j in range(iCols):
+            result[i][j] = (kernel * padded_image[i: i + kRows, j: j + kCols]).sum()
+
+    return result
 
 def my_conv2d_numpy(image: np.ndarray, filter: np.ndarray) -> np.ndarray:
     """ Aplicar un filtro 2d a cada canal de una imagen. Retornar la imagen filtrada.
@@ -103,18 +122,11 @@ def my_conv2d_numpy(image: np.ndarray, filter: np.ndarray) -> np.ndarray:
     assert filter.shape[0] % 2 == 1
     assert filter.shape[1] % 2 == 1
 
-
-    ############################
-    ### TODO: EL CÓDIGO EMPIEZA ACÁ ###
-
-    raise NotImplementedError(
-        "La función `my_conv2d_numpy` debe ser implementada en `part1.py`"
-    )
-
-    ### EL CÓDIGO TERMINA ACÁ ####
-    ############################
-
-
+    filtered_image = np.zeros((image.shape))
+    
+    for c in range(image.shape[2]):
+        filtered_image[:, :, c] = convolve(image[:, :, c], filter)
+    
     return filtered_image
 
 

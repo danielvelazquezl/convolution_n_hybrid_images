@@ -167,7 +167,6 @@ def test_my_conv2d_numpy_identity():
     filtered_img = my_conv2d_numpy(copy.deepcopy(img), filter)
     assert np.allclose(filtered_img, img)
 
-
 def test_my_conv2d_numpy_ones_filter():
     """Square filter of all 1s """
     filter = np.array(
@@ -205,7 +204,6 @@ def test_my_conv2d_numpy_ones_filter():
         gt_filtered_img[:, :, i] = gt_filtered_channel_img
 
     assert np.allclose(filtered_img, gt_filtered_img)
-
 
 def test_my_conv2d_numpy_nonsquare_filter():
     """ """

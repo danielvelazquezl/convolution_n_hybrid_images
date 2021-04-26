@@ -49,13 +49,13 @@ class HybridImageModel(nn.Module):
 	    - Puedes usar np.tile() para repetir un arreglo numpy en axes específicados.
 	    - Puedes usar torch.Tensor() para convertir arreglos numpy a Tensores de Torch.
         """
-
+        
         kernel_size = cutoff_frequency * 4 + 1
         kernel2d_with_channels = np.zeros((self.n_channels, 1, kernel_size, kernel_size))
         for i in range(self.n_channels):
-            kernel2d_with_channels[1,:,:,:] = create_Gaussian_kernel_2D(cutoff_frequency)
+            kernel2d_with_channels[i,:,:] = create_Gaussian_kernel_2D(cutoff_frequency)
 
-        return torch.from_numpy(kernel2d_with_channels)
+        return torch.Tensor(kernel2d_with_channels)
 
     
     def low_pass(self, x: torch.Tensor, kernel: torch.Tensor):

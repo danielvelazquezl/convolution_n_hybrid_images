@@ -62,8 +62,7 @@ class HybridImageModel(nn.Module):
 
     def low_pass(self, x: torch.Tensor, kernel: torch.Tensor):
         """
-        Applies low pass filter to the input image.
-	Aplica un filtro low-pass a la imagen. 
+        Applies low pass filter to the input image. Aplica un filtro low-pass a la imagen. 
         Parámetros:
             x: Tensor de shape (b, c, m, n) donde b es el batch size
             kernel: filtro low-pass a ser aplicado a la imagen

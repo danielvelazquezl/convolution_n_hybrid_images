@@ -59,7 +59,7 @@ def get_cutoff_frequencies(path: str) -> List[int]:
     with open(path) as f:
         content = f.readlines()
 
-    return list(map(lambda n: int(n), content))
+    return np.array(list(map(lambda n: int(n), content)))
 
 class HybridImageDataset(data.Dataset):
     """Hybrid images dataset."""
@@ -83,7 +83,7 @@ class HybridImageDataset(data.Dataset):
         images_a, images_b = make_dataset(image_dir)
         cutoff_frequencies = get_cutoff_frequencies(cf_file)
 
-        self.transform = transforms.Compose([transforms.ToTensor()])
+        self.transform = transforms.ToTensor()
 
         self.images_a = images_a
         self.images_b = images_b

@@ -105,7 +105,7 @@ class HybridImageModel(nn.Module):
         """
         self.n_channels = image1.shape[1]
 
-        kernel = self.get_kernel(cutoff_frequency)
+        kernel = self.get_kernel(int(cutoff_frequency))
         low_frequencies = self.low_pass(image1, kernel)
         high_frequencies = image2 - self.low_pass(image2, kernel)
         hybrid_image = low_frequencies + high_frequencies

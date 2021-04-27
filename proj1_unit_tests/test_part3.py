@@ -76,4 +76,4 @@ def test_my_conv2d_pytorch():
         ]
     )
 
-    assert torch.allclose(gt_feature_maps.float(), feature_maps.float() )
+    assert torch.allclose(gt_feature_maps.float(), feature_maps.float())
